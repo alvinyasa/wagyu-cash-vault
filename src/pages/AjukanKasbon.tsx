@@ -81,6 +81,19 @@ export default function AjukanKasbon() {
                 <Label htmlFor="alasan">Alasan</Label>
                 <Textarea id="alasan" name="alasan" required rows={4} placeholder="Keperluan keluarga, biaya kesehatan, ..." />
               </div>
+              <div className="space-y-2">
+                <Label>Metode Pembayaran</Label>
+                <RadioGroup name="metode_pembayaran" defaultValue="transfer" className="grid grid-cols-2 gap-3">
+                  <Label htmlFor="m-transfer" className="flex items-center gap-2 rounded-md border border-border p-3 cursor-pointer hover:bg-accent/30">
+                    <RadioGroupItem value="transfer" id="m-transfer" />
+                    <span>Transfer</span>
+                  </Label>
+                  <Label htmlFor="m-cash" className="flex items-center gap-2 rounded-md border border-border p-3 cursor-pointer hover:bg-accent/30">
+                    <RadioGroupItem value="cash" id="m-cash" />
+                    <span>Cash</span>
+                  </Label>
+                </RadioGroup>
+              </div>
               <div className="flex gap-3 pt-2">
                 <Button type="button" variant="outline" onClick={() => nav(-1)}>Batal</Button>
                 <Button type="submit" disabled={busy} className="flex-1 bg-gradient-to-r from-primary to-accent">
