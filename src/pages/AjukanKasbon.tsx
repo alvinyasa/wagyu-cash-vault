@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { generateTxHash } from "@/lib/blockchain";
 import { toast } from "sonner";
 import { Loader2, Blocks } from "lucide-react";
@@ -16,6 +17,7 @@ import { Loader2, Blocks } from "lucide-react";
 const schema = z.object({
   nominal: z.coerce.number().gt(40000, "Nominal harus lebih dari Rp 40.000"),
   alasan: z.string().trim().min(5, "Alasan min. 5 karakter").max(500),
+  metode_pembayaran: z.enum(["transfer", "cash"], { message: "Pilih metode pembayaran" }),
 });
 
 export default function AjukanKasbon() {
