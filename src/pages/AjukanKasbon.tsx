@@ -14,7 +14,7 @@ import { toast } from "sonner";
 import { Loader2, Blocks } from "lucide-react";
 
 const schema = z.object({
-  nominal: z.coerce.number().min(40001, "Nominal harus lebih dari Rp 40.000"),
+  nominal: z.coerce.number().gt(40000, "Nominal harus lebih dari Rp 40.000"),
   alasan: z.string().trim().min(5, "Alasan min. 5 karakter").max(500),
 });
 
@@ -70,8 +70,8 @@ export default function AjukanKasbon() {
             <CardContent className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="nominal">Nominal (Rp)</Label>
-                <Input id="nominal" name="nominal" type="number" min={40001} step={1000} required placeholder="50000" />
-                <p className="text-xs text-muted-foreground">Minimal Rp 40.001 (harus lebih dari Rp 40.000)</p>
+                <Input id="nominal" name="nominal" type="number" min={40000} step={1000} required placeholder="50000" />
+                <p className="text-xs text-muted-foreground">Minimal lebih dari Rp 40.000</p>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="alasan">Alasan</Label>
