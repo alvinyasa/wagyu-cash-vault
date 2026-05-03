@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
 import { HashLink } from "@/components/HashLink";
 import { rupiah, formatDate } from "@/lib/format";
-import { Wallet, TrendingDown, Clock, PlusCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Wallet, TrendingDown, Clock, PlusCircle, Banknote, ArrowLeftRight } from "lucide-react";
 
 export default function EmployeeDashboard() {
   const { user } = useAuth();
