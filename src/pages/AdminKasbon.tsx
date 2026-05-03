@@ -21,6 +21,7 @@ type Row = {
   status: "pending" | "approved" | "rejected";
   tx_hash: string;
   approval_tx_hash: string | null;
+  metode_pembayaran: "transfer" | "cash" | null;
   created_at: string;
   profiles?: { nama: string; email: string } | null;
 };
