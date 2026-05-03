@@ -145,6 +145,7 @@ export default function AdminKasbon() {
                       <TableRow>
                         <TableHead>Karyawan</TableHead>
                         <TableHead>Nominal</TableHead>
+                        <TableHead>Metode</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead>Tx Hash</TableHead>
                         <TableHead>Approval Hash</TableHead>
@@ -156,6 +157,7 @@ export default function AdminKasbon() {
                         <TableRow key={r.id}>
                           <TableCell>{r.profiles?.nama ?? "—"}</TableCell>
                           <TableCell className="font-semibold">{rupiah(Number(r.nominal))}</TableCell>
+                          <TableCell className="capitalize">{r.metode_pembayaran ?? "-"}</TableCell>
                           <TableCell><StatusBadge status={r.status} /></TableCell>
                           <TableCell><HashLink hash={r.tx_hash} /></TableCell>
                           <TableCell><HashLink hash={r.approval_tx_hash} /></TableCell>
