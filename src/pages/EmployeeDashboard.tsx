@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/StatusBadge";
 import { HashLink } from "@/components/HashLink";
 import { rupiah, formatDate } from "@/lib/format";
-import { Wallet, TrendingDown, Clock, PlusCircle } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Wallet, TrendingDown, Clock, PlusCircle, Banknote, ArrowLeftRight } from "lucide-react";
 
 export default function EmployeeDashboard() {
   const { user } = useAuth();
@@ -30,6 +31,8 @@ export default function EmployeeDashboard() {
   const approved = kasbon.filter((k) => k.status === "approved").reduce((s, k) => s + Number(k.nominal), 0);
   const pending = kasbon.filter((k) => k.status === "pending").length;
   const sisa = (profile?.gaji ?? 0) - approved;
+  const transferCount = kasbon.filter((k) => k.metode_pembayaran === "transfer").length;
+  const cashCount = kasbon.filter((k) => k.metode_pembayaran === "cash").length;
 
   return (
     <ProtectedLayout>
@@ -52,6 +55,28 @@ export default function EmployeeDashboard() {
 
         <Card className="glass-card">
           <CardHeader>
+            <CardTitle>Ringkasan Metode Pembayaran</CardTitle>
+          </CardHeader>
+          <CardContent className="grid grid-cols-2 gap-3">
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-secondary/30 border border-border/50">
+              <div className="rounded-xl p-2.5 bg-primary/10 text-primary"><ArrowLeftRight className="h-5 w-5" /></div>
+              <div>
+                <p className="text-xs text-muted-foreground">Transfer</p>
+                <p className="text-xl font-bold">{transferCount}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-secondary/30 border border-border/50">
+              <div className="rounded-xl p-2.5 bg-accent/10 text-accent"><Banknote className="h-5 w-5" /></div>
+              <div>
+                <p className="text-xs text-muted-foreground">Cash</p>
+                <p className="text-xl font-bold">{cashCount}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="glass-card">
+          <CardHeader>
             <CardTitle>Riwayat Terakhir</CardTitle>
           </CardHeader>
           <CardContent>
@@ -66,6 +91,10 @@ export default function EmployeeDashboard() {
                       <p className="text-xs text-muted-foreground">{formatDate(k.created_at)}</p>
                     </div>
                     <div className="flex items-center gap-3">
+                      <Badge variant="outline" className="capitalize gap-1">
+                        {k.metode_pembayaran === "cash" ? <Banknote className="h-3 w-3" /> : <ArrowLeftRight className="h-3 w-3" />}
+                        {k.metode_pembayaran ?? "-"}
+                      </Badge>
                       <HashLink hash={k.tx_hash} />
                       <StatusBadge status={k.status} />
                     </div>
