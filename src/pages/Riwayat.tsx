@@ -36,6 +36,7 @@ export default function Riwayat() {
                   <TableRow>
                     <TableHead>Tanggal</TableHead>
                     <TableHead>Nominal</TableHead>
+                    <TableHead>Metode</TableHead>
                     <TableHead>Alasan</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Tx Hash</TableHead>
@@ -47,6 +48,7 @@ export default function Riwayat() {
                     <TableRow key={r.id}>
                       <TableCell className="whitespace-nowrap">{formatDate(r.created_at)}</TableCell>
                       <TableCell className="font-semibold">{rupiah(Number(r.nominal))}</TableCell>
+                      <TableCell className="capitalize">{r.metode_pembayaran ?? "-"}</TableCell>
                       <TableCell className="max-w-xs truncate">{r.alasan}</TableCell>
                       <TableCell><StatusBadge status={r.status} /></TableCell>
                       <TableCell><HashLink hash={r.tx_hash} /></TableCell>
