@@ -95,6 +95,7 @@ export default function AdminKasbon() {
                       <TableRow>
                         <TableHead>Karyawan</TableHead>
                         <TableHead>Nominal</TableHead>
+                        <TableHead>Metode</TableHead>
                         <TableHead>Alasan</TableHead>
                         <TableHead>Tanggal</TableHead>
                         <TableHead>Tx Hash</TableHead>
@@ -109,6 +110,7 @@ export default function AdminKasbon() {
                             <div className="text-xs text-muted-foreground">{r.profiles?.email}</div>
                           </TableCell>
                           <TableCell className="font-semibold">{rupiah(Number(r.nominal))}</TableCell>
+                          <TableCell className="capitalize">{r.metode_pembayaran ?? "-"}</TableCell>
                           <TableCell className="max-w-xs truncate">{r.alasan}</TableCell>
                           <TableCell className="whitespace-nowrap">{formatDate(r.created_at)}</TableCell>
                           <TableCell><HashLink hash={r.tx_hash} /></TableCell>
