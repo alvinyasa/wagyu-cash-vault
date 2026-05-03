@@ -37,12 +37,14 @@ export default function AjukanKasbon() {
       const tx_hash = await generateTxHash({
         user_id: user.id,
         nominal: parsed.data.nominal,
+        metode_pembayaran: parsed.data.metode_pembayaran,
         action: "createKasbon",
       });
       const { error } = await supabase.from("kasbon").insert({
         user_id: user.id,
         nominal: parsed.data.nominal,
         alasan: parsed.data.alasan,
+        metode_pembayaran: parsed.data.metode_pembayaran,
         tx_hash,
       });
       if (error) throw error;
