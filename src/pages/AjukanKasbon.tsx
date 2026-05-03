@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { generateTxHash } from "@/lib/blockchain";
 import { toast } from "sonner";
 import { Loader2, Blocks } from "lucide-react";
@@ -16,6 +17,7 @@ import { Loader2, Blocks } from "lucide-react";
 const schema = z.object({
   nominal: z.coerce.number().gt(40000, "Nominal harus lebih dari Rp 40.000"),
   alasan: z.string().trim().min(5, "Alasan min. 5 karakter").max(500),
+  metode_pembayaran: z.enum(["transfer", "cash"], { message: "Pilih metode pembayaran" }),
 });
 
 export default function AjukanKasbon() {
@@ -35,12 +37,14 @@ export default function AjukanKasbon() {
       const tx_hash = await generateTxHash({
         user_id: user.id,
         nominal: parsed.data.nominal,
+        metode_pembayaran: parsed.data.metode_pembayaran,
         action: "createKasbon",
       });
       const { error } = await supabase.from("kasbon").insert({
         user_id: user.id,
         nominal: parsed.data.nominal,
         alasan: parsed.data.alasan,
+        metode_pembayaran: parsed.data.metode_pembayaran,
         tx_hash,
       });
       if (error) throw error;
@@ -76,6 +80,19 @@ export default function AjukanKasbon() {
               <div className="space-y-2">
                 <Label htmlFor="alasan">Alasan</Label>
                 <Textarea id="alasan" name="alasan" required rows={4} placeholder="Keperluan keluarga, biaya kesehatan, ..." />
+              </div>
+              <div className="space-y-2">
+                <Label>Metode Pembayaran</Label>
+                <RadioGroup name="metode_pembayaran" defaultValue="transfer" className="grid grid-cols-2 gap-3">
+                  <Label htmlFor="m-transfer" className="flex items-center gap-2 rounded-md border border-border p-3 cursor-pointer hover:bg-accent/30">
+                    <RadioGroupItem value="transfer" id="m-transfer" />
+                    <span>Transfer</span>
+                  </Label>
+                  <Label htmlFor="m-cash" className="flex items-center gap-2 rounded-md border border-border p-3 cursor-pointer hover:bg-accent/30">
+                    <RadioGroupItem value="cash" id="m-cash" />
+                    <span>Cash</span>
+                  </Label>
+                </RadioGroup>
               </div>
               <div className="flex gap-3 pt-2">
                 <Button type="button" variant="outline" onClick={() => nav(-1)}>Batal</Button>

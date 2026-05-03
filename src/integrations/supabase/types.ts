@@ -20,6 +20,7 @@ export type Database = {
           approval_tx_hash: string | null
           created_at: string
           id: string
+          metode_pembayaran: Database["public"]["Enums"]["metode_pembayaran"]
           nominal: number
           reviewed_at: string | null
           reviewed_by: string | null
@@ -32,6 +33,7 @@ export type Database = {
           approval_tx_hash?: string | null
           created_at?: string
           id?: string
+          metode_pembayaran?: Database["public"]["Enums"]["metode_pembayaran"]
           nominal: number
           reviewed_at?: string | null
           reviewed_by?: string | null
@@ -44,6 +46,7 @@ export type Database = {
           approval_tx_hash?: string | null
           created_at?: string
           id?: string
+          metode_pembayaran?: Database["public"]["Enums"]["metode_pembayaran"]
           nominal?: number
           reviewed_at?: string | null
           reviewed_by?: string | null
@@ -111,6 +114,7 @@ export type Database = {
     Enums: {
       app_role: "admin" | "karyawan"
       kasbon_status: "pending" | "approved" | "rejected"
+      metode_pembayaran: "transfer" | "cash"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -240,6 +244,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "karyawan"],
       kasbon_status: ["pending", "approved", "rejected"],
+      metode_pembayaran: ["transfer", "cash"],
     },
   },
 } as const

@@ -21,6 +21,7 @@ type Row = {
   status: "pending" | "approved" | "rejected";
   tx_hash: string;
   approval_tx_hash: string | null;
+  metode_pembayaran: "transfer" | "cash" | null;
   created_at: string;
   profiles?: { nama: string; email: string } | null;
 };
@@ -94,6 +95,7 @@ export default function AdminKasbon() {
                       <TableRow>
                         <TableHead>Karyawan</TableHead>
                         <TableHead>Nominal</TableHead>
+                        <TableHead>Metode</TableHead>
                         <TableHead>Alasan</TableHead>
                         <TableHead>Tanggal</TableHead>
                         <TableHead>Tx Hash</TableHead>
@@ -108,6 +110,7 @@ export default function AdminKasbon() {
                             <div className="text-xs text-muted-foreground">{r.profiles?.email}</div>
                           </TableCell>
                           <TableCell className="font-semibold">{rupiah(Number(r.nominal))}</TableCell>
+                          <TableCell className="capitalize">{r.metode_pembayaran ?? "-"}</TableCell>
                           <TableCell className="max-w-xs truncate">{r.alasan}</TableCell>
                           <TableCell className="whitespace-nowrap">{formatDate(r.created_at)}</TableCell>
                           <TableCell><HashLink hash={r.tx_hash} /></TableCell>
@@ -142,6 +145,7 @@ export default function AdminKasbon() {
                       <TableRow>
                         <TableHead>Karyawan</TableHead>
                         <TableHead>Nominal</TableHead>
+                        <TableHead>Metode</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead>Tx Hash</TableHead>
                         <TableHead>Approval Hash</TableHead>
@@ -153,6 +157,7 @@ export default function AdminKasbon() {
                         <TableRow key={r.id}>
                           <TableCell>{r.profiles?.nama ?? "—"}</TableCell>
                           <TableCell className="font-semibold">{rupiah(Number(r.nominal))}</TableCell>
+                          <TableCell className="capitalize">{r.metode_pembayaran ?? "-"}</TableCell>
                           <TableCell><StatusBadge status={r.status} /></TableCell>
                           <TableCell><HashLink hash={r.tx_hash} /></TableCell>
                           <TableCell><HashLink hash={r.approval_tx_hash} /></TableCell>
