@@ -31,6 +31,8 @@ export default function EmployeeDashboard() {
   const approved = kasbon.filter((k) => k.status === "approved").reduce((s, k) => s + Number(k.nominal), 0);
   const pending = kasbon.filter((k) => k.status === "pending").length;
   const sisa = (profile?.gaji ?? 0) - approved;
+  const transferCount = kasbon.filter((k) => k.metode_pembayaran === "transfer").length;
+  const cashCount = kasbon.filter((k) => k.metode_pembayaran === "cash").length;
 
   return (
     <ProtectedLayout>
